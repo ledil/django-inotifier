@@ -72,15 +72,14 @@ class Command(BaseCommand):
         daemon_kwargs = {}
         try:
             daemon_kwargs['stdout'] = settings.INOTIFIER_DAEMON_STDOUT
-        except AttirbuteError:
+        except AttributeError:
             pass
 
         try:
             daemon_kwargs['stderr'] = settings.INOTIFIER_DAEMON_STDERR
-        except AttirbuteError:
+        except AttributeError:
             pass
 
-        notifier.loop(daemonize=True, pid_file=pid_file, force_kill=True,
-                      **daemon_kwargs)
+        notifier.loop(daemonize=True, pid_file=pid_file, **daemon_kwargs)
 
         print "File monitoring started"
